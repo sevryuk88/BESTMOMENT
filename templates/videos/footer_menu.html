@@ -1,0 +1,45 @@
+{% load static %}
+
+<footer class="footer-nav">
+<nav translate="no">
+  <ul class="nav">
+   <li>
+  {% if profile_user %}
+    <a href="{% url 'users:other_profile' profile_user.username %}">
+  {% else %}
+    <a href="{% url 'users:my_videos' %}">
+  {% endif %}
+      <i class="fas fa-home fa-2x home"></i>
+      <div class="title">home</div> 
+    </a>
+</li>
+
+
+    <li>
+      <a href="?top10=true" class="add-menu">
+        <i class="fas fa-star  top10"></i>  
+        <div class="title">top10</div> 
+      </a>
+    </li>
+
+    <li>
+      <a href="{% url 'videos:upload_video' %}">
+         
+      <i class="fas fa-plus-circle fa-2x append"></i>  
+        <div class="title">add</div> 
+      </a>
+    </li>
+
+    <li>
+      <form action="{% url 'users:logout' %}" method="post" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+          <i class="fas fa-sign-out-alt fa-2x logout"></i> 
+         <div class="title">logout</div> 
+        </button>
+      </form>
+   
+    </li>
+  </ul>
+</nav>
+</footer>

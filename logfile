@@ -1,0 +1,52 @@
+2025-03-26 16:47:23.937 +03 [27034] LOG:  starting PostgreSQL 17.0 on aarch64-unknown-linux-android, compiled by Android (12470979, +pgo, +bolt, +lto, +mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262), 64-bit
+2025-03-26 16:47:23.938 +03 [27034] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-03-26 16:47:23.940 +03 [27034] LOG:  listening on Unix socket "/data/data/com.termux/files/usr/tmp/.s.PGSQL.5432"
+2025-03-26 16:47:23.950 +03 [27039] LOG:  database system was shut down at 2025-03-26 16:43:18 +03
+2025-03-26 16:47:23.959 +03 [27034] LOG:  database system is ready to accept connections
+2025-03-26 16:47:52.711 +03 [27165] FATAL:  database "u0_a314" does not exist
+2025-03-26 16:52:24.022 +03 [27037] LOG:  checkpoint starting: time
+2025-03-26 16:52:28.400 +03 [27037] LOG:  checkpoint complete: wrote 46 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.351 s, sync=0.011 s, total=4.379 s; sync files=11, longest=0.003 s, average=0.001 s; distance=269 kB, estimate=269 kB; lsn=0/1531798, redo lsn=0/1531740
+2025-03-26 16:52:36.439 +03 [27034] LOG:  received fast shutdown request
+2025-03-26 16:52:36.440 +03 [27034] LOG:  aborting any active transactions
+2025-03-26 16:52:36.443 +03 [27034] LOG:  background worker "logical replication launcher" (PID 27043) exited with exit code 1
+2025-03-26 16:52:36.446 +03 [27037] LOG:  shutting down
+2025-03-26 16:52:36.449 +03 [27037] LOG:  checkpoint starting: shutdown immediate
+2025-03-26 16:52:36.467 +03 [27037] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.021 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=242 kB; lsn=0/1531848, redo lsn=0/1531848
+2025-03-26 16:52:36.483 +03 [27034] LOG:  database system is shut down
+2025-03-26 16:52:36.601 +03 [28242] LOG:  starting PostgreSQL 17.0 on aarch64-unknown-linux-android, compiled by Android (12470979, +pgo, +bolt, +lto, +mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262), 64-bit
+2025-03-26 16:52:36.602 +03 [28242] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-03-26 16:52:36.604 +03 [28242] LOG:  listening on Unix socket "/data/data/com.termux/files/usr/tmp/.s.PGSQL.5432"
+2025-03-26 16:52:36.635 +03 [28247] LOG:  database system was shut down at 2025-03-26 16:52:36 +03
+2025-03-26 16:52:36.643 +03 [28242] LOG:  database system is ready to accept connections
+2025-03-26 16:52:52.040 +03 [28331] FATAL:  role "user" does not exist
+2025-03-26 16:54:24.145 +03 [28766] FATAL:  lock file "postmaster.pid" already exists
+2025-03-26 16:54:24.145 +03 [28766] HINT:  Is another postmaster (PID 28242) running in data directory "/data/data/com.termux/files/usr/var/lib/postgresql"?
+2025-03-26 16:54:24.255 +03 [28768] FATAL:  role "postgres" does not exist
+2025-03-26 16:57:36.738 +03 [28245] LOG:  checkpoint starting: time
+2025-03-26 16:57:36.774 +03 [28245] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.009 s, sync=0.004 s, total=0.037 s; sync files=2, longest=0.003 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/1531950, redo lsn=0/15318F8
+2025-03-26 17:01:04.242 +03 [31180] FATAL:  role "postgres" does not exist
+2025-03-26 17:01:38.219 +03 [31401] FATAL:  role "postgres" does not exist
+2025-03-26 17:02:08.415 +03 [31548] FATAL:  database "u0_a314" does not exist
+2025-03-26 17:09:26.796 +03 [2611] FATAL:  lock file "postmaster.pid" already exists
+2025-03-26 17:09:26.796 +03 [2611] HINT:  Is another postmaster (PID 28242) running in data directory "/data/data/com.termux/files/usr/var/lib/postgresql"?
+2025-03-26 17:10:59.030 +03 [3454] FATAL:  role "postgres" does not exist
+2025-03-26 17:13:41.942 +03 [4467] FATAL:  database "u0_a314" does not exist
+2025-03-26 17:14:16.139 +03 [4620] FATAL:  role "video_feed" does not exist
+2025-03-26 17:14:21.662 +03 [4632] FATAL:  database "u0_a314" does not exist
+2025-03-26 17:22:37.174 +03 [28245] LOG:  checkpoint starting: time
+2025-03-26 17:24:13.321 +03 [28245] LOG:  checkpoint complete: wrote 941 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=96.004 s, sync=0.113 s, total=96.148 s; sync files=307, longest=0.009 s, average=0.001 s; distance=4273 kB, estimate=4273 kB; lsn=0/195DF30, redo lsn=0/195DEA0
+2025-03-26 17:31:19.749 +03 [9744] FATAL:  role "DSevryuk" does not exist
+2025-03-26 17:35:50.809 +03 [11017] FATAL:  database "DSevryuk" does not exist
+2025-03-26 17:36:16.827 +03 [11158] FATAL:  role "postgres" does not exist
+2025-03-26 17:40:16.939 +03 [12548] FATAL:  role "DSevryuk" does not exist
+2025-03-26 17:40:37.245 +03 [12705] FATAL:  role "postgres" does not exist
+2025-03-26 17:42:49.679 +03 [13702] FATAL:  database "u0_a314" does not exist
+2025-03-26 18:05:40.426 +03 [28245] LOG:  checkpoint starting: time
+2025-03-26 18:05:40.655 +03 [28245] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.206 s, sync=0.006 s, total=0.230 s; sync files=3, longest=0.005 s, average=0.002 s; distance=4 kB, estimate=3846 kB; lsn=0/195F0C8, redo lsn=0/195F070
+2025-03-26 18:05:49.548 +03 [28242] LOG:  received fast shutdown request
+2025-03-26 18:05:49.549 +03 [28242] LOG:  aborting any active transactions
+2025-03-26 18:05:49.553 +03 [28242] LOG:  background worker "logical replication launcher" (PID 28250) exited with exit code 1
+2025-03-26 18:05:49.555 +03 [28245] LOG:  shutting down
+2025-03-26 18:05:49.557 +03 [28245] LOG:  checkpoint starting: shutdown immediate
+2025-03-26 18:05:49.568 +03 [28245] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.013 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=3461 kB; lsn=0/195F178, redo lsn=0/195F178
+2025-03-26 18:05:49.584 +03 [28242] LOG:  database system is shut down

@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    overflow-y: scroll;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+}
+
+.login-card {
+    box-sizing: border-box; /* <-- добавлено */
+    
+    background-color: RGB(1, 31, 38);/* #00292b; */
+    border: 0px solid #c7a247;
+    border-radius: 16px;
+    padding: 32px 24px;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    color: #e6decf;
+}
+
+.login-header {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 32px;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.login-header .inactive {
+    color: #3ba189;
+}
+
+.login-header .signup-link {
+    color: #f9d976;
+    text-decoration: none;
+}
+
+.login-header .signup-link:hover {
+    text-decoration: underline;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #cba568;
+    font-weight: 600;
+}
+
+.input-group input {
+    box-sizing: border-box; /* <-- добавлено */
+    
+    width: 100%;
+    padding: px 8px;
+    border: 1px solid #d4af37;
+    border-radius: 30px;
+    background-color: #fefefe;
+    font-size: 10px;
+    color: #222;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-input {
+  padding: 14px 18px;
+  font-size: 22px;
+  height: 40px;
+  width: 100%; /* или задай фиксированную ширину, если нужно: например, 250px */
+  box-sizing: border-box;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  color: RGB(1, 31, 38);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #f9d976;
+    box-shadow: 0 0 5px #f9d976;
+}
+
+
+
+
+.login-btn {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #f9d976;
+    border: none;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #00292b;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #ffe681;
+}
+
+.login-links {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.login-links a {
+    color: #cba568;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+.form-error {
+    color: #ff8888;
+    font-size: 13px;
+    margin-top: 4px;
+}

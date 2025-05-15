@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'videos/menu.html' %}
+{% include 'videos/footer_menu.html' %}
+
+<div class="profile-container"> 
+    
+    <form method="post" enctype="multipart/form-data" class="profile-form">
+        {% csrf_token %}
+
+        <!-- Верхняя часть (фото профиля) -->
+        <div class="profile-top">      
+            <div class="profile-image-container">
+                <label for="photo-upload" class="profile-image-label">
+                    {% if user.photo %}
+                    <img id="profile-preview" src="{{ user.photo.url }}" alt="Фото профиля" class="profile-image">
+                    {% else %}
+                    <img id="profile-preview" loading="lazy" src="/media/users/profil/user_main.jpeg" alt="Фото профиля" class="profile-image">
+                    {% endif %}
+                </label>
+           
+                <input type="file" id="photo-upload" name="photo" accept="image/*" hidden>
+                
+                {% if user.photo %}
+  <button type="submit" name="delete_photo" value="1" class="delete-photo-btn" title="Удалить фото" style="position: absolute; top: 75px; right: -25px;">
+    <i class="fas fa-trash-alt"></i>
+  </button>
+{% endif %}
+
+                
+                
+            </div>           
+        </div>
+        
+        <h1 class="profile-title">{{ user.first_name }} {{ user.last_name }}</h1>
+        
+
+        <!-- Центральная часть (форма и информация) -->
+        <div class="profile-center">
+            <div class="form-error">{{ form.non_field_errors }}</div>
+
+            {% for f in form %}
+                {% if f.name != "photo" %}
+                <div class="form-group">
+                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                    {{ f }}
+                    <div class="form-error">{{ f.errors }}</div>
+                </div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="submit-btn">SAVE</button>
+        </div>
+
+        <!-- Нижняя часть (ссылки и другие элементы) -->
+        <div class="profile-bottom">
+            <hr>
+            <p><a href="{% url 'users:password_change' %}" class="change-password-link">Ghange password</a></p>
+        </div>
+    </form>
+</div> 
+
+{% endblock %}
+
+
+
+{% block scripts %}
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}

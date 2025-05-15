@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <h1>Добро пожаловать!</h1>
+        <p>Вы успешно зарегистрировались на сайте!</p>
+        <p>Для входа в систему необходимо авторизоваться по этой <a href="{% url 'users:login' %}">ссылке</a>.</p>
+    </div>
+</div>
+{% endblock %}
+
+

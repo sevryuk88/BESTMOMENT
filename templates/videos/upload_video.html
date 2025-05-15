@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+       
+      <div class="card upload-instructions shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3">
+      <i class="fas fa-info-circle text-primary"></i> Upload Rules
+    </h5>
+    <ul class="list-unstyled mb-0">
+      <li class="mb-2">
+        <i class="fas fa-file-video text-secondary me-2"></i>
+        Format: <strong>MP4 or MOV only</strong>
+      </li>
+      <li class="mb-2">
+        <i class="fas fa-weight text-secondary me-2"></i>
+        Maximum size: <strong>500 MB</strong>
+      </li>
+      <li class="mb-2">
+        <i class="fas fa-pen-alt text-secondary me-2"></i>
+        Title example: <em>“Free kick goal by Messi”</em>
+      </li>
+      <li class="mb-2">
+        <i class="fas fa-text-width text-secondary me-2"></i>
+        Title length: <strong>Max 40 characters</strong>
+      </li>
+    </ul>
+  </div>
+</div>
+
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <!-- Убираем стандартное отображение label -->
+                <label for="id_video_file" class="custom-file-label">SELECT VIDEO</label>
+                
+                <!-- Скрываем стандартный инпут -->
+                <input type="file" id="id_video_file" name="video_file" class="custom-file-input">
+                
+                <!-- Иконка, которая будет вызывать выбор файла -->
+                <div class="upload-icon" onclick="document.getElementById('id_video_file').click();">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                
+                {% if form.video_file.errors %}
+                    {% for error in form.video_file.errors %}
+                        {% if error == "This field is required." %}
+                            <p class="error-message">The file is not selected.</p>
+                        {% else %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- 🔽 Заголовок видео — после иконки, до кнопки -->
+            <div class="input-group">
+                <label for="id_title" class="custom-label"></label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    {% for error in form.title.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <button type="submit" class="login-btn">
+                <i class="fas fa-arrow-right fa-lg"></i>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

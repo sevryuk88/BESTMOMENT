@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+    <nav translate="no">
+        <div class="login-header">
+            <span class="inactive">LOG IN</span>
+            <a href="{% url 'users:register' %}" class="signup-link">SIGN UP</a>
+        </div>
+    </nav>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            
+            <div class="form-error">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+
+            {% for f in form %}
+            <div class="input-group">
+                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                {{ f }}
+                <div class="form-error">
+                    {% for error in f.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-arrow-right fa-lg"></i>
+            </button>
+            <div class="login-links">
+                <a href="{% url 'users:password_reset' %}">Forgot your password?</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

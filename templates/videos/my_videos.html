@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  {% include 'videos/menu.html' %}
+  {% include 'videos/footer_menu.html' %}
+
+  <div class="profile-container"> 
+    <div class="profile-top">
+      <div class="profile-image-container">
+        <label class="profile-image-label">
+          {% if profile_user.photo %}
+            <img id="profile-preview" src="{{ profile_user.photo.url }}" alt="Profile Photo" class="profile-image">
+          {% else %}
+            <img id="profile-preview" src="/media/users/profil/user_main.jpeg" alt="Default Photo" class="profile-image">
+          {% endif %}
+        </label>
+        <input type="file" id="photo-upload" name="photo" accept="image/*" hidden>
+      </div>
+    </div>
+
+    <h1 class="profile-title">{{ profile_user.username }}</h1>
+    
+     
+
+    {% if not is_owner and profile_user %}
+    
+     <form id="webpush-subscribe-form" method="POST" action="{% url 'webpush:subscribe' %}">
+        {% csrf_token %}
+        <input type="hidden" name="group" value="new_videos_{{ profile_user.username }}">
+        <button type="submit" class="subscribe-btn" id="webpush-subscribe-btn" data-username="{{ profile_user.username }}">🔔</button>        
+      </form>
+    
+      <form method="post" action="{% url 'users:toggle_subscription' profile_user.username %}">
+        {% csrf_token %}
+        <button type="submit" class="subscribe-btn">
+          {% if is_subscriber %}Unfollow{% else %}Follow{% endif %}
+        </button>
+      </form>
+         
+
+    {% elif is_owner %}
+      <a href="{% url 'users:profile' %}" class="profile-settings-btn">Profile Settings</a>
+    {% endif %}
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="my-videos">My Videos</button>
+      <button class="tab-btn" data-tab="favorite-videos">Favorites</button>
+    </div>
+
+    <div id="my-videos" class="video-section">
+      {% if is_subscriber or is_owner %}
+        <div class="videos">
+          {% for video in my_videos %}
+            <div class="video-card-2">
+              <div class="custom-video-player" id="video-player-{{ video.id }}">
+                <video
+                  id="video-{{ video.id }}"
+                  class="video-element"
+                  data-id="{{ video.id }}"
+                  src="{{ video.video_file.url }}"
+                  preload="metadata"
+                  playsinline
+                  webkit-playsinline>
+                </video>
+                <div class="video-loading-spinner"></div>
+                <div class="video-overlay play-overlay">
+                  <button class="play-btn" data-video-id="{{ video.id }}">
+                    <i class="material-icons">play_arrow</i>
+                  </button>
+                </div>
+                <div class="controls-container hidden">
+                  <div class="bottom-controls">
+                    <button class="control-btn play-toggle" data-video-id="{{ video.id }}">
+                      <i class="material-icons">play_arrow</i>
+                    </button>
+                    <span class="current-time">0:00</span>
+                    <span class="divider">/</span>
+                    <span class="duration">0:00</span>
+                    <div class="spacer"></div>
+                    <button class="control-btn fullscreen-toggle" data-video-id="{{ video.id }}">
+                      <i class="material-icons">fullscreen</i>
+                    </button>
+                  </div>
+                  <div class="progress-bar-container">
+                    <input
+                      type="range"
+                      class="progress-bar"
+                      data-video-id="{{ video.id }}"
+                      min="0" max="100"
+                      value="0"
+                      step="0.1">
+                  </div>
+                </div>
+              </div>
+              {{ video.title|truncatechars:41 }}
+            </div>
+          {% empty %}
+            <p class="info-message">You haven't uploaded any videos yet — start sharing your best moments!</p>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="blurred">
+          <p class="info-message">Subscribe to view this user's videos.</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div id="favorite-videos" class="video-section hidden">
+      {% if is_subscriber or is_owner %}
+        <div class="videos">
+          {% for video in favorite_videos %}
+            <div class="video-card-2">
+              <div class="custom-video-player" id="video-player-{{ video.id }}">
+                <video
+                  id="video-{{ video.id }}"
+                  class="video-element"
+                  data-id="{{ video.id }}"
+                  src="{{ video.video_file.url }}"
+                  preload="metadata"
+                  playsinline
+                  webkit-playsinline>
+                </video>
+                <div class="video-loading-spinner"></div>
+                <div class="video-overlay play-overlay">
+                  <button class="play-btn" data-video-id="{{ video.id }}">
+                    <i class="material-icons">play_arrow</i>
+                  </button>
+                </div>
+                <div class="controls-container hidden">
+                  <div class="bottom-controls">
+                    <button class="control-btn play-toggle" data-video-id="{{ video.id }}">
+                      <i class="material-icons">play_arrow</i>
+                    </button>
+                    <span class="current-time">0:00</span>
+                    <span class="divider">/</span>
+                    <span class="duration">0:00</span>
+                    <div class="spacer"></div>
+                    <button class="control-btn fullscreen-toggle" data-video-id="{{ video.id }}">
+                      <i class="material-icons">fullscreen</i>
+                    </button>
+                  </div>
+                  <div class="progress-bar-container">
+                    <input
+                      type="range"
+                      class="progress-bar"
+                      data-video-id="{{ video.id }}"
+                      min="0" max="100"
+                      value="0"
+                      step="0.1">
+                  </div>
+                </div>
+              </div>
+              {{ video.title|truncatechars:41 }}
+            </div>
+          {% empty %}
+            <p class="info-message">You haven't added any videos to your favorites yet.</p>
+          {% endfor %}
+        </div>
+      {% else %}
+      {% if not is_owner %}
+        <p class="info-message">Subscribe to view this user's content.</p>
+      {% endif %}
+       
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script> 
+  window.vapidPublicKey = "{{ vapid_public_key|safe }}";
+  window.csrfToken = "{{ csrf_token }}";
+  </script>
+   <script src="{% static 'js/custom-controls.js' %}"></script>
+   
+  <script src="{% static 'js/webpush-subscribe.js' %}"></script>
+  <script src="{% static 'js/tabs.js' %}"></script>
+{% endblock %}

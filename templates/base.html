@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} BESTMOMENT {% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+
+    <!-- Подключение Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+
+    
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom-controls.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer_menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylesform.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/collection.css' %}">
+    <link rel="stylesheet" href="{% static 'css/leaderboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    {% block styles %}{% endblock %}
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/top-10.png' %}" type="image/png">
+</head>
+<body>
+    {% block content %}{% endblock %}
+
+    <!-- JavaScript Files -->
+    <script src="{% static 'js/likes.js' %}"></script>
+    <script src="{% static 'js/comments.js' %}"></script>
+    <script src="{% static 'js/favorites.js' %}"></script>
+    <script src="{% static 'js/views.js' %}"></script>
+    <script src="{% static 'js/custom-controls.js' %}"></script>
+    
+    <script src="{% static 'js/tabs.js' %}"></script>
+    <script src="{% static 'js/footer_menu.js' %}"></script>
+    <script src="{% static 'js/webpush-subscribe.js' %}"></script>
+    <script src="{% static 'js/service-worker.js' %}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

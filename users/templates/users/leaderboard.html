@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/leaderboard.css' %}">
+
+<div class="leaderboard-container">
+    <h1>Leaderboard</h1>
+    <table class="leaderboard-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Username</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr class="{% if user.id == selected_user_id %}highlighted{% endif %}">
+                <td>
+                    {% if forloop.counter == 1 %}
+                        <span class="badge gold">TOP 1</span>
+                    {% elif forloop.counter == 2 %}
+                        <span class="badge silver">TOP 2</span>
+                    {% elif forloop.counter == 3 %}
+                        <span class="badge bronze">TOP 3</span>
+                    {% else %}
+                        {{ forloop.counter }}
+                    {% endif %}
+                </td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.total_likes }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
