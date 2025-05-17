@@ -1,7 +1,11 @@
 from .base import *
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DEBUG = False
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["yourdomain.com"])
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
 
 LOGGING = {
     'version': 1,
