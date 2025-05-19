@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 
 from django.http import HttpResponse
-from django.core.management import call_command
+#from django.core.management import call_command
 from django.contrib.auth import get_user_model
 
 from videos.views import debug_env
@@ -39,8 +39,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),  # Встроенные маршруты Django
     path('webpush/', include('pushapp.urls', namespace='webpush')),
     
-    path('run-migrations/', run_migrations),     # временный путь
-    path('create-admin/', create_admin_user),    # временный путь
+    #path('run-migrations/', run_migrations),     # временный путь
+    #path('create-admin/', create_admin_user),    # временный путь
     
     path('debug-env/', debug_env),  # 👈 добавляем сюда
     
