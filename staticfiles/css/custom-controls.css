@@ -1,0 +1,326 @@
+
+
+html, body {
+  overflow-x: hidden;
+}
+
+
+
+
+/* Контейнер плеера */
+.custom-video-player {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  background: black;
+  overflow: hidden;
+  touch-action: manipulation;
+ /* border: 2px dashed red;  оставь для визуального контроля */
+  
+}
+
+/* Само видео */
+.video-element {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  background: black;
+ /* border: 2px dashed yellow;  оставь для визуального контроля */
+  
+  
+}
+
+
+
+/* Оверлей с большой кнопкой воспроизведения */
+.video-overlay.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.0);
+  z-index: 2;
+  
+  transition: background 0.3s ease;
+}
+
+.play-overlay .play-btn {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 50%;
+  padding: 16px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+.play-overlay .play-btn:active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Контролы */
+.controls-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 12px 8px 12px; /* одинаковые отступы слева и справа */
+
+ /*padding: 8px;*/
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.controls-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Прогресс-бар */
+.progress-bar-container {
+  overflow: visible; /* вдруг было hidden */
+  
+  width: 70%;
+  max-width: 80%;
+  margin-bottom: 6px;
+  margin: 0 auto 6px auto; /* выравнивание по центру и отступ снизу */
+  
+}
+
+.progress-bar {
+  width: 100%;
+  max-width: 100%;
+  height: 3px;
+  appearance: none;
+  background: black;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0;              /* убирает отступы */
+  margin: 0;               /* убирает внешние отступы */
+  box-sizing: border-box; /* учитывает padding внутри width */
+  /*overflow: hidden;         обрезает всё лишнее */
+  overflow: visible; 
+  position: relative;
+}
+
+/* До бегунка */
+.progress-bar::-webkit-slider-runnable-track {
+  height: 3px;
+  background: linear-gradient(to right, #D5891B 0%, #D5891B var(--value, 0%), RGB(1, 31, 38) var(--value, 0%), RGB(1, 31, 38) 100%);
+  border-radius: 2px;
+}
+
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  width: 12px;
+  background: #D5891B;
+  border-radius: 50%;
+  margin-top: -4px;
+  box-shadow: none;       /* убирает лишние тени, если есть */
+  cursor: pointer;
+  margin-top: -1;
+  position: relative;
+  z-index: 2;
+}
+
+/* Нижние контролы */
+.bottom-controls {
+  top: 18px; /* или любое другое значение */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 0 -1px;
+  font-size: 11px;
+  width: 100%;
+  box-sizing: border-box;
+  color: white;
+  
+}
+
+.control-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.divider {
+  opacity: 0.6;
+}
+
+/* Мобильные устройства */
+@media (hover: none) {
+  .control-btn {
+    padding: 10px;
+    font-size: 26px;
+  }
+
+  .play-btn {
+    padding: 24px;
+    font-size: 48px;
+  }
+}
+
+/* Спиннер */
+.video-loading-spinner {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+
+.controls-container,
+.progress-bar-container,
+.progress-bar {
+  width: 100%;
+  max-width: 100%;
+  /*overflow: hidden;*/
+  overflow: visible; /* вдруг было hidden */
+  
+  box-sizing: border-box;
+}
+
+
+.custom-video-player:fullscreen,
+.custom-video-player:-webkit-full-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-video-player:fullscreen .video-element,
+.custom-video-player:-webkit-full-screen .video-element {
+  max-height: 100vh;
+  object-fit: contain;
+}
+
+
+/*
+* {
+  outline: 1px solid rgba(0,255,0,0.2);  
+}
+*/
+.progress-bar-container {
+  width: 97%;
+  max-width: 97%;
+  /*padding: 0 10px; /* можно настроить */
+  padding: 0 12px 8px 12px; /* одинаковые отступы слева и справа */
+
+  margin: 0 auto 4px auto;
+}
+
+
+.play-btn {
+  width: 50px; /* или больше, если нужно */
+  height: 50px;
+  border-radius: 50%; /* делает кнопку круглой */
+  
+  background: none;
+  border: none;
+  opacity: 1;
+  pointer-events: auto; /* позволяет кликать */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+@media screen and (orientation: landscape) {
+  .controls-container {
+    padding: 0 24px 10px 24px;
+  }
+}
+
+
+/* Ландшафтная ориентация */
+@media screen and (orientation: landscape) {
+  .controls-container {
+    padding: 0 24px 14px 24px;
+  }
+}
+
+
+
+.settings-menu-wrapper {
+  position: relative;
+}
+
+.speed-menu {
+  position: absolute;
+  bottom: 40px;
+  right: 0;
+  background-color: #1c1c1c;
+  border-radius: 6px;
+  padding: 4px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.speed-menu.hidden {
+  display: none;
+}
+
+.speed-option {
+  padding: 6px 12px;
+  cursor: pointer;
+  color: white;
+}
+
+.speed-option:hover,
+.speed-option.active {
+  background-color: #333;
+}
+
+.control-btn svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: white; /* или другой видимый цвет */ 
+}
+
+.settings-toggle svg {
+  position: relative;
+  top: -2.5px; /* сдвигает вверх */
+  left: 14px;
+}
+
+

@@ -9,6 +9,12 @@ from django.http import HttpResponse
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
 
+from videos.views import debug_env
+
+
+
+
+'''
 # Временная функция для применения миграций
 def run_migrations(request):
     call_command("migrate")
@@ -22,10 +28,10 @@ def create_admin_user(request):
         return HttpResponse("✅ Superuser created.")
     else:
         return HttpResponse("⚠️ Superuser already exists.")
-
+'''
 
 urlpatterns = [
-    #path('grappelli/', include('grappelli.urls')),
+    
   
     path('admin/', admin.site.urls),  
     path('', include('videos.urls', namespace='videos')),      
@@ -35,6 +41,11 @@ urlpatterns = [
     
     path('run-migrations/', run_migrations),     # временный путь
     path('create-admin/', create_admin_user),    # временный путь
+    
+    path('debug-env/', debug_env),  # 👈 добавляем сюда
+    
+    
+       
     
     
 ]

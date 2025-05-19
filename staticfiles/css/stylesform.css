@@ -1,0 +1,36 @@
+
+
+
+
+.upload-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.last {
+    margin-left: auto; /* Отодвигаем Log-in и Sign-in вправо */
+    white-space: nowrap; /* Чтобы текст не переносился */
+    font-size: 35px;
+    padding: 10px;  
+    margin-top: -4px;  
+    
+}
+
+
+.last a {
+    text-decoration: none;
+}
+
+
+
+.last-log i {
+    margin-left: -10px;
+    font-size: 20px;
+    margin-top: 2px;
+    
+}
+
+
+
+

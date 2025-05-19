@@ -1,0 +1,1197 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+.shrikhand-regular {
+  /*font-family: "Shrikhand", serif; */
+  font-weight: 400;
+  font-style: normal;
+}
+
+html {
+  overflow-y: scroll;
+ 
+}
+
+
+
+/* Общие стили */
+body  {
+    font-family: 'Montserrat', sans-serif;
+
+    margin: 0;  /* Убираем внешние отступы у html и body */
+    padding: 0;  /* Убираем внутренние отступы у html и body */
+    height: 100%;  /* Задаем высоту на 100% от экрана */
+    overflow-x: hidden; /* Запрещаем горизонтальную прокрутку (перемещение вправо и влево) */    
+    background-color: RGB(1, 31, 38);  
+    
+}
+
+
+.filter-link {
+    display: inline-block; /* Чтобы ссылка работала */
+    text-decoration: none; /* Убираем стандартное подчеркивание */
+    border: none; /* Убираем границу */
+    background: none; /* Убираем фон */
+    margin-left: -15px; /* Сдвиг правее */
+
+}
+
+.filter-icon {
+    width: 26px; /* Задаем нужный размер */
+    height: auto;
+    cursor: pointer; /* Делаем курсор указателем */
+    color: white;    
+}
+
+
+
+/* Фиксированное меню */
+/* Контейнер меню */
+.dropdown {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 55px;
+    z-index: 1000;
+    background-color: transparent;
+    border-radius: 35px;
+    font-size: 14px;
+    font-family: 'Montserrat', serif;
+    text-align: center;
+    margin-top: -5px;
+}
+
+/* Кнопка, открывающая меню */
+.dropdown__face {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 145px;
+    height: 100%;
+    background-color: rgb(1, 31, 38);
+    border-radius: 30px;
+    cursor: pointer;
+    color: white;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    
+}
+
+/* Текст заголовка */
+.dropdown__text a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+    /*font-size: 16px; */
+   /* font-size: clamp(30px, 2.0vw, 40px); */
+    font-size: clamp(24px, 1.9vw, 36px);
+    
+    font-family: "Shrikhand",  serif;
+    text-transform: uppercase;
+    margin-top: 8.5px;
+    margin-rigth: 20px; 
+    /*font-weight: bold; */
+    letter-spacing: 1px; /* расстояние между буквами */
+    
+    line-height: 1.1;
+    transform: scale(1.3, 1); /* Растягиваем текст по высоте */
+    
+   
+    text-align: center;
+    /*border: 1px solid red;*/
+}
+
+/* Выпадающее меню */
+.dropdown__items {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90vw;
+    background-color: rgb(1, 31, 38);
+    border-radius: 30px;
+    padding: 15px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s ease;
+    border: 1px solid white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+/* Отображение при активации */
+input[type="checkbox"] {
+    display: none;
+}
+
+input:checked ~ .dropdown__items {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Пункты меню */
+.dropdown__items li {
+    text-align: center;
+}
+
+.dropdown__items li a {
+    color: rgb(242, 167, 27);
+    text-decoration: none;
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: bold;
+    transition: color 0.3s;
+    outline: none;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.dropdown__items li a:hover {
+    color: #ffffff;
+    transition: color 0.1s;
+}
+
+/* Скрываем SVG (если не нужен) */
+svg {
+    display: none;
+}
+
+
+
+/* Видео-лента */
+.video-feed {
+    position: relative;  /* Устанавливаем позицию для вложенных элементов */
+    z-index: 1;  /* Задаем порядок наложения, чтобы лента была поверх фона */
+    padding: -5px;  /* Отступы вокруг ленты */
+    max-width: 900px;  /* Максимальная ширина видео-ленты */
+    gap: 5px;  /* Расстояние между карточками */
+    margin: 80px auto;  /* Отступы сверху и снизу, и выравнивание по центру */
+    min-height: 120vh;  /* Минимальная высота ленты 100% от высоты экрана */
+    border-radius: 0px;  /* Без скругленных углов */
+    min-height: calc(var(--vh) * 100); /* Гарантируем, что лента будет всегда по высоте экрана */
+    /*border: 2px solid green;*/
+    margin-top: 52px;
+    
+}
+
+
+body.block-scroll {
+  overflow: hidden;
+}
+
+
+
+/*
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    aspect-ratio: 16 / 9; /* Соотношение 16:9 
+    background: black;
+}
+*/
+
+.custom-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Сохраняет пропорции без обрезки */
+}
+
+/* Если экран в портретной ориентации */
+@media (orientation: portrait) {
+    .video-wrapper {
+        width: 100vw;
+        height: 56.25vw; /* 100 / (16/9) = 56.25 */
+    }
+}
+
+
+/* кастомная панель */
+.video-controls {
+    position: absolute; /* relative;*/
+    margin-bottom: -70px; /* Поднимем панель чуть выше */
+    right: 40px;
+    margin-left: 180px;
+    transform: translateX(-50%); /* Центрируем по горизонтали */
+    width: 95%;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 9px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 3; /* Делаем так, чтобы панель была выше комментариев */
+}
+
+.video-card:hover .video-controls {
+    opacity: 1;
+}
+
+.video-card:hover .video-controls {
+    opacity: 1;
+}
+
+.progress-bar-container {
+    flex-grow: 1;
+    margin: 0 10px;
+}
+/* кастомная панель */
+
+
+
+
+
+/* Прямоугольник под меню */
+.header {
+    position: fixed; /* Закрепляем меню */    
+    top: 0px; /* Привязываем к верхней границе экрана */
+    margin-left: -2px;   
+    width: 105%; /* Меню занимает всю ширину экрана */
+    z-index: 1000; /* Высокий слой, чтобы меню было над другими элементами */
+    background-color: RGB(1, 31, 38);    
+}
+
+
+.menu-container {
+    position: relative; /* Родительский контейнер для абсолютного позиционирования */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  
+      
+}
+
+.menu-rectangle {
+    width: inherit; /* Наследует ширину от карточки, если карточка в том же родительском контейнере */
+    max-width: 720px; /* Максимальная ширина, как у .video-card */
+    height: 50px;
+    background-color: RGB(1, 31, 38);    
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+   
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем по горизонтали */
+    text-align: center;
+}
+
+
+.custom-file-upload {
+    display: flex;
+    flex-direction: column; /* Располагаем элементы вертикально */
+    align-items: center;
+    gap: 8px; /* Расстояние между текстом и иконкой */
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+
+/* Скрываем стандартный инпут */
+.custom-file-input {
+    display: none;
+}
+
+/* Стиль кастомной кнопки */
+.custom-file-label {
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+/* Контейнер с иконкой */
+.upload-icon {
+    width: 40px;
+    height: 40px;
+    background-color: RGB(1, 31, 38);/*#007bff;*/
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin: auto; 
+    margin-top: 10px; /* Отступ сверху */
+    margin-bottom: 20px; /* Отступ снизу */
+      
+}
+
+/* Иконка загрузки */
+.upload-icon i {
+    font-size: 60px;
+    color: white;
+}
+
+/* Эффект наведения */
+.upload-icon:hover {
+    background-color: RGB(158, 116, 74); /*#0056b3;*/
+}
+
+
+.auth-menu {
+    position: fixed;;
+    right: 63px; /* Отступ от правого края */
+    top: 40px; /* Отступ от верхнего края */
+    font-size: 26px; /* Размер иконки */    
+}
+
+.auth-menu button   {
+    position: absolute;
+    font-size: 26px; /* Размер иконки */   
+    background: none;
+    border: none;
+    color: blue;
+    cursor: pointer;
+    margin-top: 3px;
+    margin-left: -30px;
+         
+}
+
+/* Карточки видео */
+.video-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* вместо center */
+  text-align: left;     /* вместо center */
+
+  position: relative;
+  overflow: hidden;
+  min-height: 100px;
+  background: RGB(1, 31, 38);
+  padding: 5px; 
+ /*padding-left: 1.5em; /* Или сколько тебе нужно, чтобы задавало одинаковый отступ */
+ 
+  margin: 0px 0 10px 0;
+  border-radius: 10px;
+  gap: 5px;
+  /*border: 1px solid white; */
+}
+
+
+.video-card.animating {
+  overflow: hidden;
+  max-height: 100vh; /* или любое значение чуть больше чем видимая высота */
+}
+
+.video-card.no-scroll {
+    overflow: hidden;
+}
+
+.video-title-2 {
+  background-color: white;/*rgb(1, 31, 38); */
+ /* color: white; */
+  color: rgb(1, 31, 38);
+  text-align: center;
+  font-size: 15px;
+  margin-top: 5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); 
+  border-bottom: 1px solid black;
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+/* Контейнер для лайков, дизлайков и просмотров */
+.video-stats {
+    display: flex;
+    justify-content: center;      /* Центрует элементы */
+    align-items: center;
+    flex-wrap: wrap;              /* Позволяет перенос на маленьких экранах */
+    gap: 17px;                    /* Промежуток между элементами */
+
+    padding: 4px 12px;            /* Немного отступов для воздуха */
+    margin: 30px auto 5px auto;   /* Центрирование по горизонтали + верх/низ отступ */
+    
+    border-radius: 30px;
+    background: transparent;      /* Можешь вернуть фон при необходимости */
+    width: fit-content;           /* Ширина зависит от контента */
+    position: relative;
+    top: 15px;                   /* Если нужно приподнять */
+    
+    /*pointer-events: auto; /* Включить снова обработку кликов */
+
+    /*transform: translateX(18px); /* сдвиг вправо на 10px */
+    
+    /* Сдвиг вправо */
+   /* left: 20px; /* Попробуй от 5px до 15px */
+   
+      
+}
+
+.video-stats * {
+  pointer-events: auto;
+}
+
+
+.video-stats span {
+    font-size: 10px; /* Размер текста счётчика */
+    color: white;    /* Цвет текста */
+}
+
+/* Общий стиль для всех кнопок */
+.video-stats div {
+    display: flex;
+    flex-direction: column; /* Ставим элементы в колонку */    
+    align-items: center;
+    gap: 10px; /* Отступ между иконкой и текстом */
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  
+     
+}
+
+/* Иконки лайков и дизлайков */
+.video-stats i {
+    font-size: 17px; /* Размер иконки */
+    color: transparent; /* Убираем цвет заливки */
+    -webkit-text-stroke: 2px white; /* Белый контур */
+    text-stroke: 2px white; /* Для современных браузеров */
+    transition: all 0.3s ease; /* Плавный переход при наведении */    
+    transform: translateX(-2px); /* сдвигает иконку чуть левее */
+   /* margin-right: 3px;  уменьшает отступ между иконкой и текстом */
+    
+}
+
+
+
+.likes {
+    margin-left: 40px; /* Сдвигаем только лайки правее */
+}
+
+
+
+
+/* Активный лайк */
+.fa-thumbs-up.liked {
+    color: white;
+    -webkit-text-stroke: 0;
+    transform: scale(1.2); 
+}
+
+/* Активный дизлайк */
+.fa-thumbs-down.disliked {
+    color: rgb(242, 82, 96);
+    -webkit-text-stroke: 0; /* Убираем белый контур */
+    
+    transform: scale(1.2); 
+}
+
+
+
+.video-stats i:hover {
+    -webkit-text-stroke: 2px white; /*  Изменяем контур на другой цвет при наведении */
+    text-stroke: 2px #00ffcc;
+    /*transform: scale(1.1);  Увеличиваем размер на 20% */
+    cursor: pointer; /* Меняем курсор на указатель */
+}
+
+/* Ховер-эффекты для лайков */
+.likes:hover i {
+    -webkit-text-stroke: white ;/*RGB(242, 116, 5);   Изменяем контур на другой цвет при наведении */
+ 
+    color: white;/*RGB(242, 116, 5);  Красный цвет при наведении */
+    transform: scale(1.2); /* Лёгкое увеличение */
+}
+
+.dislikes:hover i {
+    -webkit-text-stroke: RGB(242, 82, 96);;
+     /*  Изменяем контур на другой цвет при наведении */
+ 
+    color: RGB(242, 82, 96); /* Красный цвет при наведении */
+    transform: scale(1.2); /* Лёгкое увеличение */
+  
+}
+
+/* Не забудь сделать позиционирование родителя */
+.likes i {
+    position: relative;
+    z-index: 1;
+}
+
+
+
+
+/* Просмотры — без эффекта */
+.video-stats .views i {
+    color: #999;
+    color: transparent; /* Убираем цвет заливки */
+}
+
+
+
+.video-stats .like-count,
+.video-stats .dislike-count,
+.video-stats .rating-count,
+.video-stats .view-count,
+.video-stats .message-count {
+  display: inline-block;
+  margin-left: -4px; /* Подвинь влево, можешь увеличить/уменьшить */
+}
+
+
+
+
+/* Иконка сердце */
+.favorite-btn {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.7); /* Белый контур сердца */
+    transition: color 0.3s ease-in-out;
+    text-decoration: none; /* Убираем подчёркивание */
+    position: relative;
+    top: -14px; /* Поднимает вверх, можно изменить значение */
+    
+    
+}
+
+.favorite-btn.favorited i {
+    color: white !important; /* Красное сердце при добавлении в избранное */
+}
+
+
+
+
+
+
+
+
+
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    .menu {
+        display: block;  /* Скрываем меню на мобильных устройствах */
+        flex-direction: column;  /* Меню будет вертикальным */
+        gap: 10px;  /* Расстояние между пунктами */
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        
+    }
+
+    .dropdown {
+       /* margin-top: 20px;   Отступ сверху для мобильных устройств*/ 
+        width: 170px; /*  Уменьшаем ширину */
+        flex-direction: column; /* Меню вертикально на узких экранах */
+             
+    }
+    
+    .dropdown__text {
+        margin-left: -1px;
+        /*margin-top: 10px;  Опускаем текст ниже */
+        text-align: center; /* Центрируем текст */
+    }
+        
+    
+    .background-slideshow {
+        background-attachment: scroll;  /* Фон не фиксирован при прокрутке на мобильных устройствах */
+    }
+    
+    .video-feed {
+        display: block;  /* Лента видео будет вертикальной на мобильных устройствах */
+    }
+    
+    .menu-rectangle {
+        width: 78.6%;  /*Увеличиваем ширину */
+        height: -5vh; /* Уменьшаем высоту */
+        
+    }
+}
+
+
+@media (max-width: 480px) { /* Для небольших экранов (телефоны) */
+    .dropdown__text {
+        /*margin-top: 2px;  Опускаем ещё ниже */
+        text-align: center; /* Центрируем текст */
+    
+    }
+}
+
+
+.comments-area {
+    max-height: 0; /* Изначально скрыто */
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    position: relative;
+    z-index: 2;
+    background-color: #1a1a1a;
+    color: white;
+    padding: 0px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 15px 6px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /*border: 1px solid red; */
+}
+
+/* Активное состояние — когда блок открыт */
+.comments-area.open {
+    max-height: 300px;
+    opacity: 1;
+    /*overflow-y: auto; */
+    
+    overflow-y: scroll; /* Заменили auto на scroll */
+  /*  padding-right: 10px;  Немного места под скролл */
+    scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none; /* IE */
+    
+   
+    
+}
+
+/* Скроллбар */
+.comments-area::-webkit-scrollbar {
+    width: 8px;
+}
+.comments-area::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 4px;
+}
+.comments-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Прячем нативный скролл на нужных блоках (например, .comments-scrollable) */
+.comments-scrollable {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE 10+ */
+}
+
+.comments-scrollable::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari */
+}
+
+
+.comments-list {
+    padding-left: 10px;
+    list-style: none;
+}
+
+.comments-list  li {
+    text-align: left;
+    font-size: 13px;
+    padding: 5px 0px;
+    margin-bottom: 20px;
+    border-bottom: 0px solid #333;
+}
+
+.comments-list strong {
+    font-size: 15px;
+    display: block;
+    text-align: left;
+    margin-bottom: 4px;
+    color: #EFA00F;
+}
+
+.comments-list p {
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: #dcdcdc;
+    text-align: left;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 3px;
+    
+}
+
+.comment-author {
+    font-weight: bold;
+    color: red;
+    font-size: 16px;
+}
+.comment-author:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #2E9CA0;
+    margin-left: auto;
+    margin-top: 2px;
+    position: relative;
+    display: inline-block;
+}
+
+.comment-text {
+    margin-top: 2px;
+    font-size: 13px;
+    color: #fff;
+    text-align: left;
+    word-wrap: break-word;
+    font-family: 'Inter', sans-serif;
+    word-break: break-word;
+   
+}
+
+.comment-submit-btn {
+    background: #2E9CA0;
+    border: none;
+    color: white;
+    /*font-size: 22px !important;*/
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    
+}
+.comment-submit-btn:hover {
+    background: #007b8a;
+}
+
+.comment-submit-btn i {
+    font-size: 16px;
+    line-height: 1;  /* Убираем лишние отступы */
+    
+
+}
+
+/* Анимация появления нового комментария */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.comment-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Комментарий с аватаром */
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    /*border: 1px solid blue;*/
+    margin-left: -5px;
+    
+}
+
+
+
+.comment-avatar img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid white;       /* Белый контур */
+    scale: 100%;
+    
+}
+
+.comment-body {
+    flex: 1;
+    /*border: 1px solid red;*/
+    
+
+}
+
+.comments-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    max-height: 220px;
+
+    /* Добавляем, чтобы скрыть скролл везде */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.comments-scrollable::-webkit-scrollbar {
+    display: none; /* Chrome, Safari и др. на WebKit */
+}
+
+
+/* Форма ввода комментария */
+.comment-form {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    /*padding: 10px; */
+    box-sizing: border-box;
+     /*border: 1px solid red;*/
+    display: flex;
+    background: #1c1c1c;
+    padding: 8px 10px;
+    border-radius: 0px;
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.0);
+}
+
+.comment-textarea {
+    box-sizing: border-box; /* Учитывает padding в height */
+    
+    flex: 1;
+    padding: 12px 19px;
+    font-size: 14px;
+    border-radius: 20px;
+    border: none;
+    resize: none;
+    background: #2b2b2b;
+    color: white;
+    margin-right: 10px;
+    max-height: 80px;
+    overflow-y: auto;
+   
+    min-height: 40px;
+    max-height: 64px; /* Максимум 3 строк */
+    line-height: 1.2em;
+    overflow-y: hidden;
+    
+    
+}
+
+.comment-textarea:focus {
+    background: linear-gradient(135deg, #2e9ca0, #3a3a3a);
+    transition: background 0.4s ease;
+}
+
+
+.comment-toggle.active {
+  color: white;
+  transform: scale(1.2);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.comment-textarea::placeholder {
+  color: white;
+  opacity: 0.5; /* Убедись, что текст виден (по умолчанию бывает полупрозрачный) */
+}
+
+
+.flash-messages {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { opacity: 0; display: none; }
+}
+
+
+
+@media (max-width: 600px) {
+    .comments-area {
+        border-radius: 12px;
+        padding: 0px;
+    }
+    .comment-textarea {
+        font-size: 13px;
+    }
+    .comment-submit-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+
+/* Убираем синий контур и выделение при нажатии */
+.video-stats i,
+.favorite-btn i,
+.comment-toggle,
+.user-avatar label img,
+.add-btn i,
+.video-stats a,
+.video-stats button,
+.favorite-btn,
+.comment-toggle,
+.add-btn,
+.video-stats svg,
+.add-btn svg {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent; /* Убирает подсветку на мобильных */
+}
+
+/* Убираем контур и фокус */
+.video-stats i:focus,
+.video-stats i:active,
+.favorite-btn i:focus,
+.favorite-btn i:active,
+.comment-toggle:focus,
+.comment-toggle:active,
+.user-avatar label img:focus,
+.user-avatar label img:active,
+.video-stats svg:focus,
+.video-stats svg:active,
+.add-btn svg:focus,
+.add-btn svg:active {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Отключаем стандартное выделение при клике */
+*:focus, *:active {
+    outline: none !important;
+   -webkit-tap-highlight-color: transparent;
+}
+
+/* аватар на главной*/
+
+/* --- Стили для блока автора видео --- */
+.video-author {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5em;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: -4em;
+  padding-left: 1.8em; /* задаёт одинаковый отступ слева */
+ /* border: 1px dashed red; */
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* не сжимается */
+    
+}
+
+.user-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.video-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 150px;
+   /*border: 1px solid white;*/
+    margin-top: -3.3em; /* БЫЛО -4em — стало -5em для большего подъема */
+    /*border: 1px dashed green; */
+    margin-left: -1px;
+   
+}
+
+.video-info h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  color: rgb(242, 167, 27);
+}
+
+.video-info a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.video-info a:hover {
+  color: #f2a71b;
+}
+
+/* --- Специально для больших экранов --- */
+@media (min-width: 768px) {
+  .video-author {
+    justify-content: flex-start;
+    margin-top: -4em;
+    padding-left: 14.4em; /* задаёт одинаковый отступ слева */
+    
+  }
+
+  .video-info {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .video-info h3 {
+    padding-left: 0;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1439px) {
+
+   .video-author {
+    justify-content: flex-start;
+    flex-direction: row;
+    /*justify-content: center; /* На ПК строго по центру */
+    margin-top: -4em;
+    padding-left: 17.6em; /* задаёт одинаковый отступ слева */
+    
+  }
+}
+
+
+.flash-popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+.flash-card {
+  background-color: rgb(1, 31, 38); /* #2a2a2a; */
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: auto;
+  gap: 12px;
+  border: 1px solid white;
+}
+
+.flash-card p {
+  margin: 0;
+  flex: 1;
+  word-break: break-word;
+}
+
+.flash-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+
+
+.upload-instructions {
+    background-color: RGB(1, 31, 38); /* #002b2b; */
+    color: #ffc107; 
+    font-size: 0.95rem;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    /*box-shadow: 0 0 10px rgba(255,193,7,0.2); */
+}
+.upload-instructions ul {
+    padding-left: 1.2rem;
+    margin: 0.5rem 0 0;
+}
+.upload-instructions li {
+    margin-bottom: 0.3rem;
+}
+
+
+
+.upload-instructions {
+ 
+  
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.upload-instructions h5 {
+  margin-bottom: 15px;
+  font-size: 1.25rem;
+}
+
+.upload-instructions i {
+  margin-right: 8px;
+  color: #555;
+}
+
+
+
+
+/*
+
+* {
+  outline: 1px solid rgba(0,255,0,0.2);  
+}
+*/
+
+
+
+
+
+
+
+

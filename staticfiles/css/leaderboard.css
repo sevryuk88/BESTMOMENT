@@ -1,0 +1,177 @@
+/* leaderboard.css */
+
+/* Общий фон и шрифт */
+body {
+    background-color: rgb(1, 31, 38); /* твой фон */
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Стиль контейнера */
+.leaderboard-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Таблица */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #021e25; /* немного темнее основной фон */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Заголовки */
+.leaderboard-table th {
+    text-align: left;
+    padding: 14px 20px;
+    background-color: #03262f;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1f4d58;
+}
+
+/* Строки */
+.leaderboard-table td {
+    padding: 16px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid #1f4d58;
+}
+
+/* Последняя строка без линии */
+.leaderboard-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Наведение на строку */
+.leaderboard-table tbody tr:hover {
+    background-color: #04333f;
+    transition: background-color 0.3s ease;
+}
+
+/* Кнопки */
+.leaderboard-button {
+    background-color: #ffcc00;
+    color: #000;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.leaderboard-button:hover {
+    background-color: #e6b800;
+}
+
+/* Респонсив для мобилок */
+@media (max-width: 768px) {
+    .leaderboard-table th, .leaderboard-table td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}
+
+
+/* Лидеры TOP-3 */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 6px;
+    color: #000;
+}
+
+.gold {
+    background: linear-gradient(90deg, #FFD700, #FFC300);
+}
+
+.silver {
+    background: linear-gradient(90deg, #C0C0C0, #D3D3D3);
+}
+
+.bronze {
+    background: linear-gradient(90deg, #CD7F32, #D2691E);
+}
+
+/* Плавная анимация появления строк */
+.leaderboard-table tbody tr {
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+}
+
+/* Задержка анимации для каждой строки */
+.leaderboard-table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.leaderboard-table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.leaderboard-table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+.leaderboard-table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+.leaderboard-table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+/* Можно продолжить если много строк */
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+/* Hover-эффект для строк */
+.leaderboard-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+
+/* Анимация пульсации бейджей */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Применяем пульс к бейджам */
+.badge {
+    animation: pulse 2s infinite;
+}
+
+.leaderboard-table tbody tr:hover {
+    background-color: white ;/*#f2a71b; /* Оранжевый фон */
+    color: #011f26; /* Тёмный текст */
+    transition: all 0.3s ease;
+    transform: scale(1.01);
+    border-radius: 8px;
+}
+
+/* Чтобы текст в ячейках тоже перекрашивался */
+.leaderboard-table tbody tr:hover td {
+    color: #011f26;
+}
+
+/* Выделение выбранной строки */
+.highlighted {
+  background-color: #f2a71b;
+  color: #011f26; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

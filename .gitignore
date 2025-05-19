@@ -11,3 +11,6 @@ db.sqlite3
 *.log
 node_modules/
 
+media/videos/
+.env
+.env.prod

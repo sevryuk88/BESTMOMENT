@@ -2,6 +2,10 @@
 from django.urls import path
 from . import views
 
+
+
+
+
 app_name = 'videos'
 
 urlpatterns = [
@@ -14,6 +18,8 @@ urlpatterns = [
     path('record-view/', views.record_video_view, name='record_view'),
     path('toggle-favorite/', views.toggle_favorite, name='toggle_favorite'),
     path('my-videos/', views.MyVideosView.as_view(), name='my_videos'),
+       
+    
   
     #path('search/', views.search_videos, name='search_videos'),
 
