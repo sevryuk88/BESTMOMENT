@@ -1,8 +1,8 @@
 from .base import *
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+
+
 
 DEBUG = False
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
@@ -25,3 +25,6 @@ LOGGING = {
         },
     },
 }
+
+print("AWS_ACCESS_KEY_ID:", AWS_ACCESS_KEY_ID)
+print("DEFAULT_FILE_STORAGE:", DEFAULT_FILE_STORAGE)
