@@ -30,6 +30,8 @@ class AddPage(LoginRequiredMixin, FormView):
         video = form.save(commit=False)
         video.author = self.request.user
         video.save()
+        print(video.video_file.url)
+        
         
         # 🟡 Добавляем уведомление
         messages.info(self.request, "Your video has been submitted for moderation and will appear on the site after verification.")  
