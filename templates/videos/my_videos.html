@@ -21,7 +21,9 @@
 
     <h1 class="profile-title">{{ profile_user.username }}</h1>
     
-     <a href="{{ video.video_file.url }}">Скачать видео</a>
+    
+     <p>{{ video.video_file.url }}</p>
+     
      
 
     {% if not is_owner and profile_user %}
