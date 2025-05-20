@@ -1,5 +1,4 @@
 
-
 # videos/models.py
 from django.db import models
 from django.utils import timezone
@@ -9,8 +8,10 @@ from django.db.models import F
 from datetime import timedelta
 #from videos.tasks import update_video_rating
 import videos.tasks  # Не вызываем импорт конкретной функции
+from storages.backends.s3boto3 import S3Boto3Storage
 
-     
+s3_storage = S3Boto3Storage()
+  
 
 User = get_user_model()
 
@@ -22,7 +23,7 @@ class PublishedModel(models.Manager):
 # ✅ Видео-модель
 class Video(models.Model):
     title = models.CharField(max_length=100)
-    video_file = models.FileField(upload_to='videos/')
+    video_file = models.FileField(upload_to='videos/', storage=s3_storage)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)  
     author = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='videos', null=True, default=None)
