@@ -30,7 +30,7 @@ class VideoForm(forms.ModelForm):
 
     class Meta:
         model = Video
-        fields = ['video_file', 'title']
+        fields = ['title']
 
 # Форма для комментариев
 class CommentForm(forms.ModelForm):

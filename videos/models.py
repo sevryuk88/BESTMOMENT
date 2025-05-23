@@ -23,7 +23,9 @@ class PublishedModel(models.Manager):
 # ✅ Видео-модель
 class Video(models.Model):
     title = models.CharField(max_length=100)
-    video_file = models.FileField(upload_to='videos/', storage=s3_storage)
+    #video_file = models.FileField(upload_to='videos/', storage=s3_storage)
+    video_url = models.URLField(blank=True)  # Храним URL вместо файла
+  
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)  
     author = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='videos', null=True, default=None)

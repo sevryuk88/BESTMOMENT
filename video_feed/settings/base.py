@@ -150,7 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INSTALLED_APPS += ['storages']
 
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'videos.storage_backends.R2MediaStorage'
+#DEFAULT_FILE_STORAGE = 'videos.storage_backends.R2MediaStorage'
 
 
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')

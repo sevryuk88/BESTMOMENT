@@ -17,10 +17,45 @@ from django.utils.timezone import localtime
 from django.contrib import messages  # ← добавь это
 from utils.telegram_notify import send_telegram_message
 from django.db.models import Q
+from utils.r2_upload import upload_to_r2  # Убедись, что функция работает и импорт корректен
 
 
 
 
+class AddPage(LoginRequiredMixin, FormView):
+    form_class = VideoForm
+    template_name = 'videos/upload_video.html'
+    success_url = reverse_lazy('videos:video_list')
+
+    def form_valid(self, form):
+        video = form.save(commit=False)
+        video.author = self.request.user
+
+        video_file = self.request.FILES.get('video_file')
+        if video_file:
+            try:
+                # Загрузка в R2 и получение URL
+                uploaded_url = upload_to_r2(video_file)
+                video.video_url = uploaded_url
+            except Exception as e:
+                form.add_error(None, f"Ошибка загрузки видео: {e}")
+                return self.form_invalid(form)
+        else:
+            form.add_error('video_file', "Видео не загружено.")
+            return self.form_invalid(form)
+
+        video.save()
+
+        messages.info(self.request, "Ваше видео отправлено на модерацию.")
+        send_telegram_message(
+            f"📹 <b>Новое видео от {self.request.user.username}</b>\n"
+            f"Ожидает модерации в админке."
+        )
+
+        return super().form_valid(form)
+        
+
+'''
 class AddPage(LoginRequiredMixin, FormView):
     form_class = VideoForm
     template_name = 'videos/upload_video.html'
@@ -43,7 +78,7 @@ class AddPage(LoginRequiredMixin, FormView):
         )      
         
         return super().form_valid(form)
-        
+'''       
         
 def get_top_videos():
     top_video_ids = cache.get('top_videos')
