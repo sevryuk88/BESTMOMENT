@@ -33,10 +33,16 @@ class AddPage(LoginRequiredMixin, FormView):
 
         uploaded_file = self.request.FILES.get('video_file')
         if uploaded_file:
+            filename = upload_to_r2(uploaded_file)
+            video.video_file.name = filename
+            video.save()
+
             # Загружаем видео напрямую в R2
+            '''
             url = upload_to_r2(uploaded_file)
             video.video_file.name = url  # сохраняем URL вместо файла
             video.save()
+            '''
             print("Видео успешно загружено в R2:", url)
         else:
             form.add_error('video_file', 'Файл не найден')
