@@ -31,6 +31,31 @@ class AddPage(LoginRequiredMixin, FormView):
         video = form.save(commit=False)
         video.author = self.request.user
 
+        uploaded_file = self.request.FILES.get('video_file')
+        if uploaded_file:
+            # Загружаем видео напрямую в R2
+            url = upload_to_r2(uploaded_file)
+            video.video_file.name = url  # сохраняем URL вместо файла
+            video.save()
+            print("Видео успешно загружено в R2:", url)
+        else:
+            form.add_error('video_file', 'Файл не найден')
+            return self.form_invalid(form)
+
+        messages.info(self.request, "Видео отправлено на модерацию.")
+        send_telegram_message(f"📹 Новое видео от {self.request.user.username} ожидает модерации.")
+        return super().form_valid(form)
+        
+'''
+class AddPage(LoginRequiredMixin, FormView):
+    form_class = VideoForm
+    template_name = 'videos/upload_video.html'
+    success_url = reverse_lazy('videos:video_list')
+
+    def form_valid(self, form):
+        video = form.save(commit=False)
+        video.author = self.request.user
+
         video_file = self.request.FILES.get('video_file')
         if video_file:
             try:
@@ -55,7 +80,7 @@ class AddPage(LoginRequiredMixin, FormView):
         return super().form_valid(form)
         
 
-'''
+
 class AddPage(LoginRequiredMixin, FormView):
     form_class = VideoForm
     template_name = 'videos/upload_video.html'
