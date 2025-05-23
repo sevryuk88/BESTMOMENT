@@ -36,6 +36,7 @@ class AddPage(LoginRequiredMixin, FormView):
             filename = upload_to_r2(uploaded_file)
             video.video_file.name = filename
             video.save()
+            print(video.video_file.url)
 
             # Загружаем видео напрямую в R2
             '''
