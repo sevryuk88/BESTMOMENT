@@ -38,13 +38,7 @@ urlpatterns = [
     path('users/', include('users.urls', namespace="users")),  
     path('accounts/', include('django.contrib.auth.urls')),  # Встроенные маршруты Django
     path('webpush/', include('pushapp.urls', namespace='webpush')),
-    
-    #path('run-migrations/', run_migrations),     # временный путь
-    #path('create-admin/', create_admin_user),    # временный путь
-    
-    path('debug-env/', debug_env),  # 👈 добавляем сюда
-    
-    
+   
        
     
     
