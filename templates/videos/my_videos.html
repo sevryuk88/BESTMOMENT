@@ -22,7 +22,7 @@
     <h1 class="profile-title">{{ profile_user.username }}</h1>
     
     
-     <p>{{ video.video_file.url }}</p>
+     <p>{{ video.video_url }}</p>
         
 
     {% if not is_owner and profile_user %}
@@ -60,7 +60,7 @@
                   id="video-{{ video.id }}"
                   class="video-element"
                   data-id="{{ video.id }}"
-                  src="{{ video.video_file.url }}"
+                  src="{{ video.video_url }}"
                   preload="metadata"
                   playsinline
                   webkit-playsinline>
@@ -118,7 +118,7 @@
                   id="video-{{ video.id }}"
                   class="video-element"
                   data-id="{{ video.id }}"
-                  src="{{ video.video_file.url }}"
+                  src="{{ video.video_url }}"
                   preload="metadata"
                   playsinline
                   webkit-playsinline>
