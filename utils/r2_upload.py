@@ -17,7 +17,7 @@ def upload_to_r2(file_obj):
         Fileobj=file_obj,
         Bucket=settings.AWS_STORAGE_BUCKET_NAME,
         Key=filename,
-        ExtraArgs={"ContentType": "video/mp4", "ACL": "public-read"}
+        ExtraArgs={"ContentType": "video/mp4"}
     )
 
     return f"https://cdn.bestmoment.org/{filename}"
