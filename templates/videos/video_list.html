@@ -42,12 +42,15 @@
         <video
           id="video-{{ video.id }}"
           class="video-element"
-          src="{{ video.video_url }}"
+          
           preload="metadata"
           playsinline
           webkit-playsinline
           data-video-id="{{ video.id }}"
           data-id="{{ video.id }}">
+          <source src="{{ video.video_url }}">
+          Your browser does not support the video tag.
+          
         </video>
 
      
