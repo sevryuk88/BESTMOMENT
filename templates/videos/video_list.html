@@ -37,8 +37,9 @@
       {# --- Видеоплеер --- #}
       <div class="custom-video-player" id="video-player-{{ video.id }}">
       
+        
      
-      
+        {% if video.video_file %}
         <video
           id="video-{{ video.id }}"
           class="video-element"
@@ -51,6 +52,9 @@
           src="{{ video.video_file.url }}" type="video/mp4">
                    
         </video>
+        {% else %}
+        <p>Видео недоступно.</p>
+        {% endif %}
 
      
 
