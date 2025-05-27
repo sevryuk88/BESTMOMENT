@@ -17,7 +17,6 @@ from django.utils.timezone import localtime
 from django.contrib import messages  # ← добавь это
 from utils.telegram_notify import send_telegram_message
 from django.db.models import Q
-from utils.r2_upload import upload_to_r2  # Убедись, что функция работает и импорт корректен
 
 
 
@@ -32,23 +31,15 @@ class AddPage(LoginRequiredMixin, FormView):
 
         uploaded_file = self.request.FILES.get('video_file')
         if uploaded_file:
-            try:
-                # загружаем файл в R2 и получаем прямую ссылку
-                url = upload_to_r2(uploaded_file)  # функция возвращает ссылку на файл
-                video.video_url = url
-                video.save()
-                print("Видео успешно загружено в R2:", url)
-            except Exception as e:
-                form.add_error(None, f"Ошибка загрузки: {e}")
-                return self.form_invalid(form)
+            video.video_file = uploaded_file
+            video.save()
         else:
             form.add_error('video_file', "Файл не загружен")
             return self.form_invalid(form)
 
         messages.info(self.request, "Ваше видео отправлено на модерацию.")
         send_telegram_message(
-            f"📹 <b>Новое видео от {self.request.user.username}</b>\n"
-            f"Ожидает модерации в админке."
+            f"📹 <b>Новое видео от {self.request.user.username}</b>\nОжидает модерации в админке."
         )
         return super().form_valid(form)
               

@@ -60,7 +60,7 @@
                   id="video-{{ video.id }}"
                   class="video-element"
                   data-id="{{ video.id }}"
-                  src="{{ video.video_url }}"
+                  src="{{ video.video_file.url }}"
                   preload="metadata"
                   playsinline
                   webkit-playsinline>
@@ -118,7 +118,7 @@
                   id="video-{{ video.id }}"
                   class="video-element"
                   data-id="{{ video.id }}"
-                  src="{{ video.video_url }}"
+                  src="{{ video.video_file.url }}"
                   preload="metadata"
                   playsinline
                   webkit-playsinline>
