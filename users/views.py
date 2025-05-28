@@ -48,10 +48,39 @@ class RegisterUser(CreateView):
     
 class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
+    
+    
+    
+class ProfileUser(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = ProfileUserForm
+    template_name = 'users/profile.html'
+    extra_context = {'title': "Профиль пользователя", 'default_image': settings.DEFAULT_USER_IMAGE}
+
+    def get_success_url(self):
+        return reverse_lazy('users:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['files'] = self.request.FILES  # ✅ Вот это добавь
+        return kwargs
+
+    def form_valid(self, form):
+        if 'delete_photo' in self.request.POST:
+            self.object.photo.delete(save=False)
+            self.object.photo = None
+            self.object.save()
+            return redirect(self.get_success_url())
+
+        return super().form_valid(form)
+        
 
     
     
-
+'''
 class ProfileUser(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = ProfileUserForm
@@ -86,7 +115,7 @@ class ProfileUser(LoginRequiredMixin, UpdateView):
             self.object.save()
 
         return response
-    
+'''    
 
         
                                 
