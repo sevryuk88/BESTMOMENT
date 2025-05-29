@@ -17,6 +17,8 @@ from django.utils.timezone import localtime
 from django.contrib import messages  # ← добавь это
 from utils.telegram_notify import send_telegram_message
 from django.db.models import Q
+from django.templatetags.static import static
+
 
 
 
@@ -122,12 +124,22 @@ class AddCommentView(View):
             video.update_rating()
 
             # 🟢 Готовим URL аватарки
+            
+            if comment.author.photo:
+                photo_url = comment.author.photo.url
+                updated_at = comment.author.updated_at.timestamp()
+                full_photo_url = f"{photo_url}?v={int(updated_at)}"
+            else:
+                full_photo_url = static('users/profil/user_main.jpeg')
+    
+            '''
             if comment.author.photo:
                 photo_url = comment.author.photo.url
                 updated_at = comment.author.photo.updated_at.timestamp() if hasattr(comment.author.photo, 'updated_at') else ''
                 full_photo_url = f"{photo_url}?v={int(updated_at)}" if updated_at else photo_url
             else:
                 full_photo_url = '/media/users/user.png'
+            '''
 
             return JsonResponse({
                 'content': comment.content,
