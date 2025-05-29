@@ -17,7 +17,7 @@
                     {% if user.photo %}
                     <img id="profile-preview" src="{{ user.photo.url }}" alt="Фото профиля" class="profile-image">
                     {% else %}
-                    <img id="profile-preview" loading="lazy" src="/media/users/profil/user_main.jpeg" alt="Фото профиля" class="profile-image">
+                    <img id="profile-preview" loading="lazy" src="{% static 'users/profil/user_main.jpeg' %}" alt="Фото профиля" class="profile-image">
                     {% endif %}
                 </label>
            

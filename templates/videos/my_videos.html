@@ -12,7 +12,7 @@
           {% if profile_user.photo %}
             <img id="profile-preview" src="{{ profile_user.photo.url }}" alt="Profile Photo" class="profile-image">
           {% else %}
-            <img id="profile-preview" src="/media/users/profil/user_main.jpeg" alt="Default Photo" class="profile-image">
+            <img id="profile-preview" src="{% static 'users/profil/user_main.jpeg' %}" alt="Default Photo" class="profile-image">
           {% endif %}
         </label>
         <input type="file" id="photo-upload" name="photo" accept="image/*" hidden>

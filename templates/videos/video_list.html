@@ -169,7 +169,7 @@
               {% if video.author.photo %}
                 <img src="{{ video.author.photo.url }}?v={{ video.author.photo.updated_at|date:'U' }}" alt="{{ video.author.username }}">
               {% else %}
-                <img src="/media/users/profil/user_main.jpeg" alt="default-avatar">
+                <img src="{% static 'users/profil/user_main.jpeg' %}" alt="default-avatar">
               {% endif %}
           </a>
            </div>
@@ -208,7 +208,7 @@
                     {% if comment.author.photo %}
                       <img src="{{ comment.author.photo.url }}?v={{ comment.author.photo.updated_at|date:'U' }}" alt="{{ comment.author.username }}">
                     {% else %}
-                      <img src="/media/users/profil/user_main.jpeg" alt="default-avatar">
+                      <img src="{% static 'users/profil/user_main.jpeg' %}" alt="default-avatar">
                     {% endif %}
                   </div>
 
