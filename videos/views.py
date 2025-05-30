@@ -71,22 +71,15 @@ class VideoList(LoginRequiredMixin, ListView):
     template_name = 'videos/video_list.html'
 
     def get_queryset(self):
-        #queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related(
-        #    Prefetch('comments', queryset=Comment.objects.select_related('author'))
-        #)
+       
         
-        #queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related('comments')
+        queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related('comments')
 
         filter_top10 = self.request.GET.get('top10', 'false')
         if filter_top10 == 'true':
             return get_top_videos()
             
-        # ✅ Подгружаем автора и автора комментариев
-        return Video.objects.filter(is_approved=True).select_related('author').prefetch_related(
-            Prefetch('comments', queryset=Comment.objects.select_related('author'))
-        )
-
-        #return queryset
+        return queryset
         
         
     def get_context_data(self, **kwargs):
