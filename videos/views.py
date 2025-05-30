@@ -10,7 +10,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.core.cache import cache
 from django.db.models import F
-from .models import Video, Category, Vote, VideoView, FavoriteVideo
+from .models import Video, Category, Vote, VideoView, FavoriteVideo, Comment
 from .forms import VideoForm, CommentForm
 from .tasks import increment_view_count  # Celery-задача для просмотров
 from django.utils.timezone import localtime
@@ -55,8 +55,11 @@ def get_top_videos():
         top_videos = Video.objects.filter(time_create__gte=ten_days_ago).order_by('-rating')[:10]
         top_video_ids = [video.id for video in top_videos]
         cache.set('top_videos', top_video_ids, timeout=864000)
+        
+    return Video.objects.filter(id__in=top_video_ids).select_related('author').prefetch_related(Prefetch('comments', queryset=Comment.objects.select_related('author'))).order_by('-rating')
+    
 
-    return Video.objects.filter(id__in=top_video_ids).select_related('author').prefetch_related('comments').order_by('-rating')
+    #return #Video.objects.filter(id__in=top_video_ids).select_related('author').prefetch_related('comments').order_by('-rating')
     
 
 
@@ -66,7 +69,11 @@ class VideoList(LoginRequiredMixin, ListView):
     template_name = 'videos/video_list.html'
 
     def get_queryset(self):
-        queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related('comments')
+        queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related(
+            Prefetch('comments', queryset=Comment.objects.select_related('author'))
+        )
+        
+        #queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related('comments')
 
         filter_top10 = self.request.GET.get('top10', 'false')
         if filter_top10 == 'true':
