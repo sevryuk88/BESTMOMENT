@@ -71,17 +71,22 @@ class VideoList(LoginRequiredMixin, ListView):
     template_name = 'videos/video_list.html'
 
     def get_queryset(self):
-        queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related(
-            Prefetch('comments', queryset=Comment.objects.select_related('author'))
-        )
+        #queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related(
+        #    Prefetch('comments', queryset=Comment.objects.select_related('author'))
+        #)
         
         #queryset = Video.objects.filter(is_approved=True).select_related('author').prefetch_related('comments')
 
         filter_top10 = self.request.GET.get('top10', 'false')
         if filter_top10 == 'true':
             return get_top_videos()
+            
+        # ✅ Подгружаем автора и автора комментариев
+        return Video.objects.filter(is_approved=True).select_related('author').prefetch_related(
+            Prefetch('comments', queryset=Comment.objects.select_related('author'))
+        )
 
-        return queryset
+        #return queryset
         
         
     def get_context_data(self, **kwargs):
@@ -91,6 +96,15 @@ class VideoList(LoginRequiredMixin, ListView):
         for video in videos:
             video.user_liked = video.votes.filter(user=self.request.user, is_like=True).exists()
             video.user_disliked = video.votes.filter(user=self.request.user, is_like=False).exists()
+            
+            
+            # ✅ Добавляем правильный URL аватарки
+            if video.author.photo:
+                updated_at = video.author.updated_at.timestamp()
+                video.author.photo_url = f"{video.author.photo.url}?v={int(updated_at)}"
+            else:
+                video.author.photo_url = static('users/profil/user_main.jpeg')
+            
 
         context['videos'] = videos
         context['top10'] = self.request.GET.get('top10', 'false')

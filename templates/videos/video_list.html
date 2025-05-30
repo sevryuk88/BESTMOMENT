@@ -167,7 +167,9 @@
           
             
               {% if video.author.photo %}
-                <img src="{{ video.author.photo.url }}?v={{ video.author.updated_at|date:'U' }}" alt="{{ video.author.username }}">
+                <img src="{{ video.author.photo_url }}" alt="avatar">
+              
+              <!--  <img src="{{ video.author.photo.url }}?v={{ video.author.updated_at|date:'U' }}" alt="{{ video.author.username }}"> -->
               {% else %}
                 <img src="{% static 'users/profil/user_main.jpeg' %}" alt="default-avatar">
               {% endif %}
