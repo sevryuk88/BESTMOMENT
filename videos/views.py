@@ -18,6 +18,8 @@ from django.contrib import messages  # ← добавь это
 from utils.telegram_notify import send_telegram_message
 from django.db.models import Q
 from django.templatetags.static import static
+from django.db.models import Prefetch
+
 
 
 
