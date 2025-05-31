@@ -52,6 +52,9 @@
           src="{{ video.video_file.url }}" type="video/mp4">
                    
         </video>
+        {% else %}
+        <span>Аноним</span>
+        {% endif %}
 
      
         <div class="video-loading-spinner"></div>
@@ -234,10 +237,6 @@
 
         </div>
       </div>
-      <p>Author: {{ video.author }}</p>
-      <p>Photo: {{ video.author.photo }}</p>
-      <p>Photo URL: {{ video.author.photo.url }}</p>
-
    
     {% endfor %}
 
