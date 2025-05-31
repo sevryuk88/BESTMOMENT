@@ -234,13 +234,14 @@
 
         </div>
       </div>
+      <p>Author: {{ video.author }}</p>
+      <p>Photo: {{ video.author.photo }}</p>
+      <p>Photo URL: {{ video.author.photo.url }}</p>
+
    
     {% endfor %}
 
   </div>
-<p>Author: {{ video.author }}</p>
-<p>Photo: {{ video.author.photo }}</p>
-<p>Photo URL: {{ video.author.photo.url }}</p>
 
 
 {% endblock content %}
