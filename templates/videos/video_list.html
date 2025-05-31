@@ -52,12 +52,8 @@
           src="{{ video.video_file.url }}" type="video/mp4">
                    
         </video>
-        {% else %}
-        <p>Видео недоступно.</p>
-        {% endif %}
 
      
-
         <div class="video-loading-spinner"></div>
 
         {# --- Кнопка воспроизведения по центру --- #}
@@ -165,15 +161,11 @@
              
           <a href="{% url 'users:other_profile' video.author.username %}">
           
-            
               {% if video.author.photo %}
-                <img src="{{ video.author.photo.url }}?v={{ video.author.photo.name|urlencode }}">
-                
-              
-              <!--  <img src="{{ video.author.photo.url }}?v={{ video.author.updated_at|date:'U' }}" alt="{{ video.author.username }}"> -->
+                  <img src="{{ video.author.photo.url }}?v={{ video.author.photo.name|urlencode }}">
               {% else %}
-                <img src="{% static 'users/profil/user_main.jpeg' %}" alt="default-avatar">
-              {% endif %}
+                  <img src="{% static 'users/profil/user_main.jpeg' %}" alt="default-avatar">
+              {% endif %}           
           </a>
            </div>
           
@@ -246,6 +238,9 @@
     {% endfor %}
 
   </div>
+<p>Author: {{ video.author }}</p>
+<p>Photo: {{ video.author.photo }}</p>
+<p>Photo URL: {{ video.author.photo.url }}</p>
 
 
 {% endblock content %}
