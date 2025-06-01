@@ -8,7 +8,7 @@ class MediaStorage(S3Boto3Storage):
 
 class User(AbstractUser):
     photo = models.ImageField(
-        upload_to="users/%Y/%m/%d/",
+        upload_to="%Y/%m/%d/",
         storage=MediaStorage(),  # Вот здесь мы явно указываем хранилище
         blank=True,
         null=True,
@@ -17,23 +17,4 @@ class User(AbstractUser):
     date_birth = models.DateTimeField(blank=True, null=True, verbose_name="Дата рождения")
     updated_at = models.DateTimeField(auto_now=True)
     subscribers = models.ManyToManyField('self', symmetrical=False, related_name='subscriptions', blank=True)
-    
-
-
-
-
-
-'''
-
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-
-class User(AbstractUser):
-    photo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True, verbose_name="Фотография")
-    date_birth = models.DateTimeField(blank=True, null=True, verbose_name="Дата рождения")
-    updated_at = models.DateTimeField(auto_now=True)  # Добавляем дату обновления
-    subscribers = models.ManyToManyField('self', symmetrical=False, related_name='subscriptions', blank=True)
-    
-'''   
     
