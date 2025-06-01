@@ -165,7 +165,7 @@
           <a href="{% url 'users:other_profile' video.author.username %}">
           
               {% if video.author.photo %}
-                  <img src="{{ video.author.photo.url }}?v={{ video.author.updated_at|date:'U' }}">
+                  <img src="{{ video.author.photo.url }}" alt="...">
                   
                   <!-- <img src="{{ video.author.photo.url }}?v={{ video.author.photo.name|urlencode }}"> -->
               {% else %}
@@ -206,7 +206,7 @@
 
                   <div class="comment-avatar">
                     {% if comment.author.photo %}
-                      <img src="{{ comment.author.photo.url }}?v={{ comment.author.updated_at|date:'U' }}">
+                      <img src="{{ comment.author.photo.url }}">
                       
                       <!-- <img src="{{ comment.author.photo.url }}?v={{ comment.author.photo.updated_at|date:'U' }}" alt="{{ comment.author.username }}"> -->
                     {% else %}
