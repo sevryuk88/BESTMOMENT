@@ -216,7 +216,31 @@ def dislike_video(request):
         'comments': video.comments.count()
     })
     
+    
 
+
+@require_POST
+def record_video_view(request):
+    video_id = request.POST.get('video_id')
+    if not video_id:
+        return JsonResponse({'error': 'Не указан идентификатор видео.'}, status=400)
+
+    user_id = request.user.id if request.user.is_authenticated else None
+
+    # Запускаем фоновую задачу
+    increment_view_count.delay(video_id, user_id)
+
+    try:
+        video = Video.objects.get(id=video_id)
+        # Считаем количество уникальных просмотров
+        view_count = video.video_views.count()
+    except Video.DoesNotExist:
+        return JsonResponse({'error': 'Видео не найдено.'}, status=404)
+
+    return JsonResponse({'message': 'Просмотр засчитан', 'view_count': view_count})
+    
+    
+'''
 @require_POST
 def record_video_view(request):
     video_id = request.POST.get('video_id')
@@ -227,7 +251,7 @@ def record_video_view(request):
     increment_view_count.delay(video_id, user_id)
 
     return JsonResponse({'message': 'Просмотр засчитан'})
-    
+'''    
 
 """
 @require_POST
