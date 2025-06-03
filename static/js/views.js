@@ -24,10 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
           },
           body: new URLSearchParams({ video_id: videoId }),
         })
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) throw new Error("Server error");
+            return res.json();
+          })
           .then(data => {
             console.log("Просмотр засчитан:", data);
-
             const viewCountEl = document.querySelector(`#view-count-${videoId}`);
             if (viewCountEl && data.view_count) {
               viewCountEl.textContent = data.view_count;

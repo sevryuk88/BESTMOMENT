@@ -218,7 +218,41 @@ def dislike_video(request):
     
     
 
+@require_POST
+def record_video_view(request):
+    video_id = request.POST.get("video_id")
+    if not video_id:
+        return JsonResponse({"error": "Не указан идентификатор видео."}, status=400)
 
+    user_id = request.user.id if request.user.is_authenticated else None
+
+    # Запуск фоновой задачи
+    try:
+        increment_view_count.delay(video_id, user_id)
+    except Exception as e:
+        return JsonResponse({"error": f"Ошибка запуска задачи: {str(e)}"}, status=500)
+
+    # Подсчёт просмотров
+    try:
+        video = Video.objects.get(id=video_id)
+
+        # Безопасно обращаемся к related_name
+        view_count = getattr(video, "video_views", None)
+        if view_count is None:
+            return JsonResponse({"error": "Поле video_views не найдено."}, status=500)
+
+        count = view_count.count()
+    except Video.DoesNotExist:
+        return JsonResponse({"error": "Видео не найдено."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": f"Ошибка подсчёта: {str(e)}"}, status=500)
+
+    return JsonResponse({"message": "Просмотр засчитан", "view_count": count})
+    
+    
+    
+
+'''
 @require_POST
 def record_video_view(request):
     video_id = request.POST.get('video_id')
@@ -240,7 +274,7 @@ def record_video_view(request):
     return JsonResponse({'message': 'Просмотр засчитан', 'view_count': view_count})
     
     
-'''
+
 @require_POST
 def record_video_view(request):
     video_id = request.POST.get('video_id')
