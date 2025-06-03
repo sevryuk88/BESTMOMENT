@@ -46,7 +46,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
 # Celery
-CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='redis://localhost:6379/0')
+CELERY_BROKER_URL = env('REDIS_URL', default='redis://localhost:6379/0')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
