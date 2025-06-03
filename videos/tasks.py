@@ -9,9 +9,40 @@ from django.db.models import F
 
 
 
+
+
+
 @shared_task
 def increment_view_count(video_id, user_id=None):
-    """ Увеличивает счётчик просмотров видео асинхронно и создаёт запись VideoView """
+    from videos.models import Video, VideoView, User
+
+    try:
+        video = Video.objects.get(id=video_id)
+        user = User.objects.get(id=user_id) if user_id else None
+
+        # Проверим, не существует ли уже просмотр
+        obj, created = VideoView.objects.get_or_create(video=video, user=user)
+
+        if created:
+            # Только при новом просмотре увеличиваем оба поля
+            Video.objects.filter(id=video_id).update(
+                view_count=F('view_count') + 1,
+                rating=F('rating') + 1
+            )
+            return {'message': 'Просмотр засчитан', 'view_count': video.view_count + 1}
+        else:
+            return {'message': 'Уже засчитан ранее', 'view_count': video.view_count}
+
+    except Video.DoesNotExist:
+        return {'error': 'Видео не найдено'}
+    except User.DoesNotExist:
+        return {'error': 'Пользователь не найден'}
+        
+
+"""
+@shared_task
+def increment_view_count(video_id, user_id=None):
+     Увеличивает счётчик просмотров видео асинхронно и создаёт запись VideoView 
     from videos.models import Video, VideoView, User
 
     try:
@@ -31,7 +62,7 @@ def increment_view_count(video_id, user_id=None):
     except User.DoesNotExist:
         return {'error': 'Пользователь не найден'}
         
-"""
+
 #  Фоновая задача Celery для подсчёта просмотров
 @shared_task
 def increment_view_count(video_id):
