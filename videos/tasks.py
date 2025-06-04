@@ -9,7 +9,28 @@ from django.db.models import F
 
 
 
+@shared_task
+def increment_view_count(video_id):
+    from videos.models import VideoView  # Только нужное
+   
 
+    try:
+        # Минимизируем использование ORM
+        from django.db import connection
+        with connection.cursor() as cursor:
+            cursor.execute("UPDATE videos_video SET rating = rating + 1 WHERE id = %s", [video_id])
+        
+        # Только одна простая запись
+        VideoView.objects.get_or_create(video_id=video_id, user=None)
+        
+    except Exception as e:
+        return {'error': str(e)}
+    
+    return {'success': f'Просмотр засчитан для видео {video_id}'}
+    
+
+
+"""
 @shared_task
 def increment_view_count(video_id, user_id=None):
     from videos.models import Video, VideoView
@@ -42,7 +63,7 @@ def increment_view_count(video_id, user_id=None):
     
 
 
-"""
+
 @shared_task
 def increment_view_count(video_id, user_id=None):
     from videos.models import Video, VideoView, User
