@@ -10,7 +10,7 @@ from django.db.models import F
 
 
 
-
+"""
 
 @shared_task
 def increment_view_count(video_id, user_id=None):
@@ -40,7 +40,7 @@ def increment_view_count(video_id, user_id=None):
         return {'error': 'Пользователь не найден'}
         
 
-"""
+
 @shared_task
 def increment_view_count(video_id, user_id=None):
     from videos.models import Video, VideoView, User
@@ -91,11 +91,11 @@ def increment_view_count(video_id, user_id=None):
     except User.DoesNotExist:
         return {'error': 'Пользователь не найден'}
         
-
+"""
 #  Фоновая задача Celery для подсчёта просмотров
 @shared_task
 def increment_view_count(video_id):
-     Увеличивает счётчик просмотров видео асинхронно 
+     '''Увеличивает счётчик просмотров видео асинхронно '''
     from videos.models import Video, VideoView  # Импортируем внутри функции, чтобы избежать цикла
     
     try:
@@ -107,7 +107,7 @@ def increment_view_count(video_id):
     except Video.DoesNotExist:
         return {'error': 'Видео не найдено'}
     return {'success': f'Просмотр засчитан для видео {video_id}'}
-"""
+
 
 
 @shared_task
