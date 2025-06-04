@@ -8,10 +8,41 @@ from django.db.models import F
 
 
 
+@shared_task
+def increment_view_count(video_id, user_id=None):
+    """ Увеличивает счётчик просмотров видео и рейтинг, если пользователь ещё не смотрел """
+    from videos.models import Video, VideoView, User
+    from django.db.models import F
+
+    try:
+        video = Video.objects.get(id=video_id)
+        user = User.objects.get(id=user_id) if user_id else None
+
+        # Проверка: есть ли уже просмотр
+        obj, created = VideoView.objects.get_or_create(video=video, user=user)
+
+        if created:
+            # Только если новый просмотр — увеличиваем просмотры и рейтинг
+            Video.objects.filter(id=video_id).update(
+                view_count=F('view_count') + 1,
+                rating=F('rating') + 1
+            )
+
+        # Обновим объект и вернём актуальное значение
+        video.refresh_from_db()
+        return {
+            'message': 'Просмотр засчитан',
+            'view_count': video.view_count
+        }
+
+    except Video.DoesNotExist:
+        return {'error': 'Видео не найдено'}
+    except User.DoesNotExist:
+        return {'error': 'Пользователь не найден'}
+        
 
 
-
-
+"""
 @shared_task
 def increment_view_count(video_id, user_id=None):
     from videos.models import Video, VideoView, User
@@ -40,7 +71,7 @@ def increment_view_count(video_id, user_id=None):
         return {'error': 'Пользователь не найден'}
         
 
-"""
+
 @shared_task
 def increment_view_count(video_id, user_id=None):
     from videos.models import Video, VideoView, User
