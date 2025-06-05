@@ -69,6 +69,33 @@ def increment_view_count(video_id, user_id=None):
 
 @shared_task
 def update_top_videos():
+    from videos.models import Video  # импорт внутри задачи — ок
+    import gc  # для сброса памяти вручную
+
+    try:
+        ten_days_ago = timezone.now() - timedelta(days=10)
+
+        # Только нужные поля, чтобы не грузить всю модель
+        top_video_ids = list(
+            Video.objects.filter(time_create__gte=ten_days_ago)
+            .order_by('-rating')
+            .values_list('id', flat=True)[:10]
+        )
+
+        # Кэшируем список ID
+        cache.set('top_videos', list(top_video_ids), timeout=864000)  # 10 дней
+
+        return {'success': f'ТОП-10 видео обновлены. Кол-во: {len(top_video_ids)}'}
+
+    finally:
+        gc.collect()  # ручная сборка мусора
+        
+
+
+
+"""
+@shared_task
+def update_top_videos():
     from videos.models import Video
     from django.core.cache import cache
     from django.utils import timezone
@@ -83,7 +110,7 @@ def update_top_videos():
 
     return {'success': f'ТОП-10 видео обновлены. Кол-во: {len(top_videos)}'}
         
-    
+"""   
 
     
 @shared_task
