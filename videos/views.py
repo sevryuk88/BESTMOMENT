@@ -269,6 +269,9 @@ def record_video_view(request):
         if not redis_client.exists(unique_key):
             redis_client.set(unique_key, 1, ex=3600)  # TTL = 1 час
             redis_client.incr(f"views_pending:{video_id}")
+            
+            increment_view_count.delay(video_id, user_id)
+            
     except Exception as e:
         return JsonResponse({"error": f"Ошибка Redis: {str(e)}"}, status=500)
 
