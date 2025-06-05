@@ -28,13 +28,13 @@ def increment_view_count(video_id):
     
     return {'success': f'Просмотр засчитан для видео {video_id}'}
     
-
+"""
 @shared_task
 def increment_view_count(video_id, user_id=None):
-    """
+   
     Увеличивает счётчик просмотров видео асинхронно и создаёт запись VideoView.
     Один пользователь — один просмотр.
-    """
+    
     from videos.models import Video, VideoView, User
     from django.db.models import F
 
@@ -64,8 +64,7 @@ def increment_view_count(video_id, user_id=None):
     except Video.DoesNotExist:
         return {'error': 'Видео не найдено'}
         
-
-
+"""
 
 @shared_task
 def update_top_videos():
