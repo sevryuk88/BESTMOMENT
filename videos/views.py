@@ -215,7 +215,7 @@ def dislike_video(request):
     
     
 
-
+"""
 @require_POST
 def record_video_view(request):
     video_id = request.POST.get("video_id")
@@ -246,7 +246,7 @@ def record_video_view(request):
         return JsonResponse({"error": f"Ошибка подсчёта: {str(e)}"}, status=500)
 
     return JsonResponse({"message": "Просмотр засчитан", "view_count": count})
-    
+"""   
     
     
 
