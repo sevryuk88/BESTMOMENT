@@ -8,7 +8,7 @@ from django.db.models import F
 
 
 
-
+"""
 @shared_task
 def increment_view_count(video_id):
     from videos.models import VideoView  # Только нужное
@@ -27,8 +27,8 @@ def increment_view_count(video_id):
         return {'error': str(e)}
     
     return {'success': f'Просмотр засчитан для видео {video_id}'}
-    
-"""
+"""   
+
 @shared_task
 def increment_view_count(video_id, user_id=None):
    
@@ -63,8 +63,8 @@ def increment_view_count(video_id, user_id=None):
 
     except Video.DoesNotExist:
         return {'error': 'Видео не найдено'}
-        
-"""
+      
+
 
 @shared_task
 def update_top_videos():
