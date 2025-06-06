@@ -32,8 +32,8 @@ def increment_view_count(video_id):
 @shared_task
 def increment_view_count(video_id, user_id=None):
    
-    Увеличивает счётчик просмотров видео асинхронно и создаёт запись VideoView.
-    Один пользователь — один просмотр.
+    """Увеличивает счётчик просмотров видео асинхронно и создаёт запись VideoView.
+    Один пользователь — один просмотр. """
     
     from videos.models import Video, VideoView, User
     from django.db.models import F
