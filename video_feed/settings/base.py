@@ -263,8 +263,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_TIMEOUT = 10  # Таймаут в секундах
 
 # ==================== Celery ====================
-CELERY_BROKER_URL = env("REDIS_URL", default="redis://localhost:6379/1")  # DB 1 для Celery
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/1")  # DB 1 для Celery
+CELERY_BROKER_URL = REDIS_URL
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TASK_TRACK_STARTED = True
