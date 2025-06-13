@@ -1,6 +1,9 @@
 from .base import *
 import os
 
+
+SECURE_SSL_REDIRECT = True
+
 DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
