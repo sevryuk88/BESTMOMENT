@@ -1,5 +1,5 @@
 
-"""
+
 import os 
 import environ
 from pathlib import Path
@@ -192,8 +192,8 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
 
-"""
 
+"""
 import os
 import environ
 from pathlib import Path
@@ -426,5 +426,5 @@ LOGGING = {
         },
     },
 }
-
+"""
 
